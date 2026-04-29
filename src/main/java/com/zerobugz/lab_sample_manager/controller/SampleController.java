@@ -27,6 +27,19 @@ private SampleService sampleService;
         return sampleService.addSample(sample);
 
     }
+    @GetMapping("/{id}")
+    public Sample getById(@PathVariable Long id){
+        return sampleService.getById(id);
+    }
+
+    @PutMapping("/{id}")
+    public Sample updateSample(@PathVariable Long id,@RequestBody Sample sample){
+        return sampleService.updateSample(id,sample);
+    }
+    @DeleteMapping("/{id}")
+    public void deleteSample(@PathVariable Long id){
+        sampleService.deleteSample(id);
+    }
 }
 
 
