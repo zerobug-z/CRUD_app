@@ -1,7 +1,13 @@
 package com.zerobugz.lab_sample_manager.repository;
 
-import java.time.LocalDate;
+import com.zerobugz.lab_sample_manager.model.Sample;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-public class SampleRepository {
+import java.util.List;
+
+
+@Repository
+public interface SampleRepository extends JpaRepository<Sample, Long> {
 
 }

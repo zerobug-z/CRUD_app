@@ -1,63 +1,42 @@
 package com.zerobugz.lab_sample_manager.service;
 
 import com.zerobugz.lab_sample_manager.model.Sample;
+import com.zerobugz.lab_sample_manager.repository.SampleRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
 
 public class SampleService {
+    @Autowired
+   public SampleRepository sampleRepository;
 
-    private List<Sample> samples = new ArrayList<Sample>();
-    private long counter = 1;
 
     public List<Sample> getAllSamples() {
-        return samples;
+        return sampleRepository.findAll();
     }
 
-
-    public Sample addSample(Sample sample) {
-        sample.setId(counter);
-        counter++;
-        samples.add(sample);
-        return sample;
+    public Sample addSample(Sample sample){
+        return sampleRepository.save(sample);
     }
 
-    public Sample getById(Long id) {
-        Sample foundSample= null;
-        for (Sample sample: samples
-             ) {
-            if(sample.getId().equals(id)){
-                foundSample = sample;
-                break;
-            }
-        }
-        return foundSample;
-    }
+   public Sample getById(Long id){
+        return sampleRepository.findById(id).orElse(null);
+   }
 
-    public Sample updateSample(Long id, Sample updatedSample){
-        Sample alteredSample = null;
-        for (Sample sample: samples
-             ) {
-            if(sample.getId().equals(id)){
-                sample.setName(updatedSample.getName());
-                sample.setPurpose(updatedSample.getPurpose());
-                sample.setStatus(updatedSample.getStatus());
-                alteredSample=sample;
-                break;
-            }
-        }
-        return alteredSample;
-    }
+
+   public Sample updateSample(Long id,Sample updatedSample){
+       Sample alteredSample = sampleRepository.findById(id).orElse(null);
+       assert alteredSample != null;
+       alteredSample.setName(updatedSample.getName());
+       alteredSample.setPurpose(updatedSample.getPurpose());
+       alteredSample.setStatus(updatedSample.getStatus());
+
+       return sampleRepository.save(alteredSample);
+   }
+
     public void deleteSample(Long id){
-        for (Sample sample: samples
-             ) {
-            if(sample.getId().equals(id)){
-                samples.remove(sample);
-                break;
-            }
-        }
+        sampleRepository.deleteById(id);
     }
 }

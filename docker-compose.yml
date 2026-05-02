@@ -1,0 +1,23 @@
+
+version: "3"
+
+
+services:
+
+  database:
+
+    image: "postgres:16"
+    container_name: "lab-sample-manager"
+
+    ports:
+      - 5432:5432
+
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres123
+      POSTGRES_DB: labdb
+
+
+    volumes:
+
+      - ./db-data/:/var/lib/postgresql/data/
