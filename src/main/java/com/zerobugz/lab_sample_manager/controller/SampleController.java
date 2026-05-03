@@ -2,6 +2,7 @@ package com.zerobugz.lab_sample_manager.controller;
 
 import com.zerobugz.lab_sample_manager.model.Sample;
 import com.zerobugz.lab_sample_manager.service.SampleService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,7 +24,7 @@ private SampleService sampleService;
     }
 
     @PostMapping
-    public Sample addSample(@RequestBody Sample sample){
+    public Sample addSample(@Valid @RequestBody Sample sample){
         return sampleService.addSample(sample);
 
     }
@@ -33,7 +34,7 @@ private SampleService sampleService;
     }
 
     @PutMapping("/{id}")
-    public Sample updateSample(@PathVariable Long id,@RequestBody Sample sample){
+    public Sample updateSample(@PathVariable Long id,@Valid @RequestBody Sample sample){
         return sampleService.updateSample(id,sample);
     }
     @DeleteMapping("/{id}")
