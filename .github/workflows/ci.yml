@@ -13,5 +13,5 @@ jobs:
            java-version: '21'
            distribution: 'temurin'
      - name: Build with Maven
-       run: mvn --batch-mode clean test
+       run: ./mvnw --batch-mode clean test
 
