@@ -1,5 +1,7 @@
 package com.zerobugz.lab_sample_manager.controller;
 
+import com.zerobugz.lab_sample_manager.dto.SampleRequestDTO;
+import com.zerobugz.lab_sample_manager.dto.SampleResponseDTO;
 import com.zerobugz.lab_sample_manager.model.Sample;
 import com.zerobugz.lab_sample_manager.service.SampleService;
 import jakarta.validation.Valid;
@@ -19,28 +21,26 @@ public class SampleController {
 private SampleService sampleService;
 
     @GetMapping
-    public List<Sample> getAllSamples(){
+    public List<SampleResponseDTO> getAllSamples(){
         return sampleService.getAllSamples();
     }
 
     @PostMapping
-    public Sample addSample(@Valid @RequestBody Sample sample){
+    public SampleResponseDTO addSample(@Valid @RequestBody SampleRequestDTO sample){
         return sampleService.addSample(sample);
 
     }
     @GetMapping("/{id}")
-    public Sample getById(@PathVariable Long id){
+    public SampleResponseDTO getById(@PathVariable Long id){
         return sampleService.getById(id);
     }
 
     @PutMapping("/{id}")
-    public Sample updateSample(@PathVariable Long id,@Valid @RequestBody Sample sample){
-        return sampleService.updateSample(id,sample);
+    public SampleResponseDTO updateSample(@PathVariable Long id,@RequestBody SampleRequestDTO sample){
+        return sampleService.updateSample(sample,id);
     }
     @DeleteMapping("/{id}")
     public void deleteSample(@PathVariable Long id){
         sampleService.deleteSample(id);
     }
 }
-
-
